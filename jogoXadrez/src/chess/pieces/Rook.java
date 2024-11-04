@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardgame.Board;
+import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
@@ -19,6 +20,59 @@ public class Rook extends ChessPiece {
 	@Override
 	public boolean[][] possibleMoves() {
 		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+			
+			//ter uma posição auxiliar
+			Position p = new Position(0, 0);
+			
+			//verificar posição acima 
+			p.setValues(position.getRow() - 1 , position.getColumn());
+			
+			while(getBoard().PositionExists(p) && !getBoard().TheresIsApieces(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+				p.setRow(p.getRow() - 1);
+			}
+			
+			if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			//verificar posição esquerda 
+			p.setValues(position.getRow()  , position.getColumn() - 1);
+			
+			while(getBoard().PositionExists(p) && !getBoard().TheresIsApieces(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+				p.setColumn(p.getColumn() - 1);
+			}
+			
+			if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			//verificar posição direita 
+			p.setValues(position.getRow()  , position.getColumn() + 1);
+			
+			while(getBoard().PositionExists(p) && !getBoard().TheresIsApieces(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+				p.setColumn(p.getColumn() + 1);
+			}
+			
+			if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			//verificar posição baixo 
+			p.setValues(position.getRow() + 1 , position.getColumn());
+			
+			while(getBoard().PositionExists(p) && !getBoard().TheresIsApieces(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+				p.setRow(p.getRow() + 1);
+			}
+			
+			if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			
+			
 		return mat;
 	}
 	
